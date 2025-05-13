@@ -1,0 +1,48 @@
+import java.util.*;
+
+class Node {
+    String name;
+
+    public Node(String name) {
+        this.name = name;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Node node = (Node) o;
+        return name.equals(node.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return name.hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return name;
+    }
+}
+
+class Graph {
+    private Map<Node, Map<Node, Integer>> adjacencyList;
+
+    public Graph() {
+        this.adjacencyList = new HashMap<>();
+    }
+
+    public void addNode(Node node) {
+        adjacencyList.putIfAbsent(node, new HashMap<>());
+    }
+
+    public void addEdge(Node node1, Node node2, int weight) {
+        adjacencyList.get(node1).put(node2, weight);
+        adjacencyList.get(node2).put(node1, weight); // Para grafos não direcionados
+    }
+
+    public Map<Node, Integer> getNeighbors(Node node) {
+        return adjacencyList.getOrDefault(node, new HashMap<>());
+    }
+}

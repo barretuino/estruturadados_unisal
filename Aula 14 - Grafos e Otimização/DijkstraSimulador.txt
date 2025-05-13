@@ -1,0 +1,115 @@
+import java.util.*;
+
+public class DijkstraSimulator {
+
+    public static Map<Node, Integer> dijkstra(Graph graph, Node startNode) {
+        Map<Node, Integer> distances = new HashMap<>();
+        Set<Node> visited = new HashSet<>();
+        PriorityQueue<NodeWithDistance> priorityQueue = new PriorityQueue<>(Comparator.comparingInt(nd -> nd.distance));
+        Map<Node, Node> predecessors = new HashMap<>(); // Para reconstruir o caminho
+
+        // Inicialização
+        for (Node node : graph.adjacencyList.keySet()) {
+            distances.put(node, Integer.MAX_VALUE);
+        }
+        distances.put(startNode, 0);
+        priorityQueue.offer(new NodeWithDistance(startNode, 0));
+
+        System.out.println("Iniciando Dijkstra a partir do nó: " + startNode);
+
+        while (!priorityQueue.isEmpty()) {
+            NodeWithDistance currentWrapper = priorityQueue.poll();
+            Node current = currentWrapper.node;
+            int currentDistance = currentWrapper.distance;
+
+            System.out.println("\nVisitando nó: " + current + " (Distância atual: " + currentDistance + ")");
+
+            if (visited.contains(current)) {
+                System.out.println("Nó " + current + " já foi visitado.");
+                continue;
+            }
+            visited.add(current);
+            System.out.println("Nó " + current + " marcado como visitado.");
+
+            for (Map.Entry<Node, Integer> neighborEntry : graph.getNeighbors(current).entrySet()) {
+                Node neighbor = neighborEntry.getKey();
+                int weight = neighborEntry.getValue();
+                int newDistance = currentDistance + weight;
+
+                System.out.println("  Analisando vizinho: " + neighbor + " (Peso da aresta: " + weight + ")");
+
+                if (newDistance < distances.get(neighbor)) {
+                    System.out.println("    Distância para " + neighbor + " atualizada de " + distances.get(neighbor) + " para " + newDistance);
+                    distances.put(neighbor, newDistance);
+                    predecessors.put(neighbor, current);
+                    priorityQueue.offer(new NodeWithDistance(neighbor, newDistance));
+                } else {
+                    System.out.println("    Distância para " + neighbor + " (" + distances.get(neighbor) + ") não é menor que " + newDistance + ".");
+                }
+            }
+        }
+
+        System.out.println("\nDistâncias finais a partir de " + startNode + ":");
+        for (Map.Entry<Node, Integer> entry : distances.entrySet()) {
+            System.out.println("  " + entry.getKey() + ": " + entry.getValue());
+        }
+
+        // Opcional: Reconstruir o caminho para um nó específico
+        // Node targetNode = new Node("F");
+        // List<Node> shortestPath = reconstructPath(predecessors, targetNode);
+        // System.out.println("\nCaminho mais curto para " + targetNode + ": " + shortestPath);
+
+        return distances;
+    }
+
+    // Classe auxiliar para armazenar o nó e sua distância na Priority Queue
+    private static class NodeWithDistance {
+        Node node;
+        int distance;
+
+        public NodeWithDistance(Node node, int distance) {
+            this.node = node;
+            this.distance = distance;
+        }
+    }
+
+    // Função opcional para reconstruir o caminho mais curto
+    public static List<Node> reconstructPath(Map<Node, Node> predecessors, Node target) {
+        List<Node> path = new LinkedList<>();
+        Node current = target;
+        while (current != null) {
+            path.add(0, current);
+            current = predecessors.get(current);
+        }
+        return path;
+    }
+
+    public static void main(String[] args) {
+        Graph graph = new Graph();
+        Node a = new Node("A");
+        Node b = new Node("B");
+        Node c = new Node("C");
+        Node d = new Node("D");
+        Node e = new Node("E");
+        Node f = new Node("F");
+
+        graph.addNode(a);
+        graph.addNode(b);
+        graph.addNode(c);
+        graph.addNode(d);
+        graph.addNode(e);
+        graph.addNode(f);
+
+        graph.addEdge(a, b, 4);
+        graph.addEdge(a, c, 2);
+        graph.addEdge(b, e, 3);
+        graph.addEdge(c, b, 1);
+        graph.addEdge(c, d, 5);
+        graph.addEdge(e, d, 2);
+        graph.addEdge(e, f, 4);
+        graph.addEdge(d, f, 1);
+
+        Node startNode = a;
+        dijkstra(graph, startNode);
+    }
+}

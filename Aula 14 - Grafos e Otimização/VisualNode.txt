@@ -1,0 +1,118 @@
+import javax.swing.*;
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.HashMap;
+
+class VisualNode {
+    int x, y;
+    String name;
+
+    public VisualNode(String name, int x, int y) {
+        this.name = name;
+        this.x = x;
+        this.y = y;
+    }
+}
+
+class VisualEdge {
+    VisualNode node1, node2;
+    int weight;
+
+    public VisualEdge(VisualNode node1, VisualNode node2, int weight) {
+        this.node1 = node1;
+        this.node2 = node2;
+        this.weight = weight;
+    }
+}
+
+class DijkstraPanel extends JPanel {
+    private List<VisualNode> nodes = new ArrayList<>();
+    private List<VisualEdge> edges = new ArrayList<>();
+    private Map<VisualNode, Integer> distances = new HashMap<>(); // Para exibir as distâncias
+
+    public void addNode(VisualNode node) {
+        nodes.add(node);
+        distances.put(node, Integer.MAX_VALUE); // Inicializar distâncias
+        repaint();
+    }
+
+    public void addEdge(VisualEdge edge) {
+        edges.add(edge);
+        repaint();
+    }
+
+    public void updateDistance(VisualNode node, int distance) {
+        distances.put(node, distance);
+        repaint();
+    }
+
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        Graphics2D g2d = (Graphics2D) g;
+        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
+        // Desenhar arestas
+        g2d.setColor(Color.BLACK);
+        for (VisualEdge edge : edges) {
+            g2d.drawLine(edge.node1.x, edge.node1.y, edge.node2.x, edge.node2.y);
+            // Desenhar peso da aresta (ponto médio)
+            int midX = (edge.node1.x + edge.node2.x) / 2;
+            int midY = (edge.node1.y + edge.node2.y) / 2;
+            g2d.drawString(String.valueOf(edge.weight), midX + 5, midY - 5);
+        }
+
+        // Desenhar nós e distâncias
+        for (VisualNode node : nodes) {
+            g2d.setColor(Color.BLUE);
+            g2d.fillOval(node.x - 15, node.y - 15, 30, 30);
+            g2d.setColor(Color.WHITE);
+            g2d.drawString(node.name, node.x - 10, node.y + 5);
+            g2d.setColor(Color.RED);
+            g2d.drawString(String.valueOf(distances.get(node)), node.x - 10, node.y + 20);
+        }
+    }
+}
+
+public class VisualDijkstraSimulator extends JFrame {
+    private DijkstraPanel panel;
+
+    public VisualDijkstraSimulator() {
+        setTitle("Visualizador Dijkstra");
+        setSize(600, 400);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        panel = new DijkstraPanel();
+        add(panel);
+
+        // Exemplo de criação de nós e arestas
+        VisualNode a = new VisualNode("A", 50, 100);
+        VisualNode b = new VisualNode("B", 150, 50);
+        VisualNode c = new VisualNode("C", 150, 150);
+        VisualNode d = new VisualNode("D", 250, 100);
+
+        panel.addNode(a);
+        panel.addNode(b);
+        panel.addNode(c);
+        panel.addNode(d);
+
+        panel.addEdge(new VisualEdge(a, b, 4));
+        panel.addEdge(new VisualEdge(a, c, 2));
+        panel.addEdge(new VisualEdge(b, d, 3));
+        panel.addEdge(new VisualEdge(c, d, 5));
+
+        // Exemplo de atualização de distância (isso seria feito durante a execução do Dijkstra)
+        panel.updateDistance(a, 0);
+        panel.updateDistance(b, 4);
+        panel.updateDistance(c, 2);
+        panel.updateDistance(d, 7); // Exemplo incorreto, seria atualizado pelo algoritmo
+
+        setVisible(true);
+    }
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(VisualDijkstraSimulator::new);
+    }
+}

@@ -1,0 +1,93 @@
+import java.util.*;
+
+class No {
+    public String nome;
+    public int distancia;
+    public List<Aresta> adjacentes;
+    public No anterior;
+
+    public No(String nome) {
+        this.nome = nome;
+        distancia = Integer.MAX_VALUE;
+        adjacentes = new ArrayList<>();
+        anterior = null;
+    }
+}
+
+class Aresta {
+    public No destino;
+    public int peso;
+
+    public Aresta(No destino, int peso) {
+        this.destino = destino;
+        this.peso = peso;
+    }
+}
+
+public class Dijkstra {
+
+    public static void calcularCaminhoMaisCurto(No origem) {
+        origem.distancia = 0;
+        PriorityQueue<No> filaPrioridade = new PriorityQueue<>(Comparator.comparingInt(no -> no.distancia));
+        filaPrioridade.add(origem);
+
+        while (!filaPrioridade.isEmpty()) {
+            No atual = filaPrioridade.poll();
+
+            for (Aresta aresta : atual.adjacentes) {
+                No vizinho = aresta.destino;
+                int novaDistancia = atual.distancia + aresta.peso;
+
+                if (novaDistancia < vizinho.distancia) {
+                    filaPrioridade.remove(vizinho);
+                    vizinho.distancia = novaDistancia;
+                    vizinho.anterior = atual;
+                    filaPrioridade.add(vizinho);
+                }
+            }
+        }
+    }
+
+    public static List<No> getCaminhoMaisCurto(No destino) {
+        List<No> caminho = new ArrayList<>();
+        for (No no = destino; no != null; no = no.anterior) {
+            caminho.add(no);
+        }
+        Collections.reverse(caminho);
+        return caminho;
+    }
+
+    public static void main(String[] args) {
+        No noA = new No("A");
+        No noB = new No("B");
+        No noC = new No("C");
+        No noD = new No("D");
+        No noE = new No("E");
+
+        noA.adjacentes.add(new Aresta(noB, 10));
+        noA.adjacentes.add(new Aresta(noC, 3));
+        noB.adjacentes.add(new Aresta(noC, 1));
+        noB.adjacentes.add(new Aresta(noD, 2));
+        noC.adjacentes.add(new Aresta(noB, 4));
+        noC.adjacentes.add(new Aresta(noD, 8));
+        noC.adjacentes.add(new Aresta(noE, 2));
+        noD.adjacentes.add(new Aresta(noE, 7));
+        noE.adjacentes.add(new Aresta(noD, 9));
+
+        calcularCaminhoMaisCurto(noA);
+
+        System.out.println("Distâncias a partir do nó A:");
+        System.out.println("Para B: " + noB.distancia);
+        System.out.println("Para C: " + noC.distancia);
+        System.out.println("Para D: " + noD.distancia);
+        System.out.println("Para E: " + noE.distancia);
+
+        No destino = noE;
+        List<No> caminho = getCaminhoMaisCurto(destino);
+        System.out.println("\nCaminho mais curto de A para " + destino.nome + ":");
+        for (No no : caminho) {
+            System.out.print(no.nome + " ");
+        }
+        System.out.println("\nDistância total: " + destino.distancia);
+    }
+}
