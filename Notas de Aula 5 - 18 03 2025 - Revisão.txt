@@ -1,0 +1,272 @@
+Notas de Aula 18/03/2025
+Atividade será aplicada via AVA no dia 25/03 a partir das 19h00
+
+1.Introdução a Estruturas de Dados. Tipos básicos de dados - Declaração e Uso de matrizes
+	Dados: são informações que são colocadas em programas e computadores.
+	Algoritmo: sequência de passos para se resolver problemas em computador.
+	Estrutura: organização de dados para que possam ser realizados os algoritmos 
+	
+	As estruturas de dados, na maioria dos casos, baseiam-se nos tipos de armazenamento vistos dia a dia, ou seja, nada mais são do que a transformação de uma forma de armazenamento já conhecida e utilizada no mundo real adaptada para o mundo computacional. Por isso, cada tipo de estrutura de dados possui vantagens e desvantagens e cada uma delas tem sua área de atuação (massa de dados) otimizada. 
+
+Os tipos de dados manipulados por um algoritmo podem ser classificados em dois grupos: atômicos e complexos ou compostos. Os tipos atômicos são aqueles cujos elementos do conjunto de valores são indivisíveis, por exemplo: o tipo inteiro, real, caractere e lógico. Por outro lado, os tipos complexos são aqueles cujos elementos do conjunto de valores podem ser decompostos em partes mais simples. Se um tipo de dado pode ser decomposto, então o tipo de dado é dito estruturado, e a organização de cada componente e as relações entre eles constituem a disciplina de Estrutura de Dados.
+
+	- Dados Homogêneos: Uma estrutura de dados, que utiliza somente um tipo de dado, em sua definição é conhecida como dados homogêneos. Variáveis compostas homogêneas correspondem a posições de memória, identificadas por um mesmo nome, individualizado por índices e cujo conteúdo é composto do mesmo tipo. Sendo os vetores (também conhecidos como estruturas de dados unidimensionais) e as matrizes (estruturas de dados bidimensionais) os representantes dos dados homogêneos. 
+
+	- Vetor: O vetor é uma estrutura de dados linear que necessita de somente um índice para que seus elementos sejam endereçados. É utilizado para armazenar uma lista de valores do mesmo tipo, ou seja, o tipo vetor permite armazenar mais de um valor em uma mesma variável. 
+		- Algumas características do tipo vetor([10]): 
+		- Alocação estática (deve-se conhecer as dimensões da estrutura no momento da declaração) 
+		- Estrutura homogênea 
+		- Alocação sequencial (bytes contíguos) 
+		- Inserção/Exclusão 
+		- Realocação dos elementos 
+		- Posição de memória não liberada
+
+Os Vetores são arranjos homogêneos de dados, sendo considerado a forma mais simples de estruturar um conjunto de dados. Podemos comparar esses arranjos como uma parede de tijolos que nada mais é do que um agrupamento ordenado do objeto tijolo. 
+
+	- Estrutura de Dados: Um estrutura é um arranjo heterogêneo, representando um grupo heterogêneo de itens no qual cada item é identificado por um identificador próprio, sendo cada um deles conhecido como um membro da estrutura.
+	
+Uma estrutura é um grupo de itens no qual cada item é identificado por um identificador próprio, sendo cada um deles conhecido com um membro da estrutura 
+
+2. Tipos básicos de dados - Coleções, Mapas e Listas
+
+	Em Java, as coleções, mapas e listas são estruturas de dados fundamentais para armazenar e manipular conjuntos de objetos. Cada uma possui características e usos específicos:
+
+	2.1. Coleções (Collections)
+	Conceito: Uma "collection" em Java é uma interface que representa um grupo de objetos, conhecidos como elementos.
+	Tipos principais:
+		- List: Coleção ordenada que permite elementos duplicados.
+		- Set: Coleção que não permite elementos duplicados.
+		- Queue: Coleção projetada para processamento de elementos antes da inserção.
+		
+	Implementações comuns:
+		- ArrayList: Lista redimensionável com acesso rápido aos elementos.
+		- LinkedList: Lista ligada com inserções e remoções eficientes. (hoje na aula)
+	
+	2.2. Listas (Lists)
+	Características:
+		- Coleção ordenada de elementos.
+		- Permite elementos duplicados.
+		- Os elementos são acessados por índice (posição).
+	Usos:
+		- Armazenar sequências de objetos.
+		- Implementar filas e pilhas.
+		- Manipular listas de itens em interfaces gráficas.
+	
+	2.3. Mapas (Maps)
+	Conceito: Um mapa é uma coleção que armazena pares chave-valor.
+	
+	Exemplo utilizando json:
+	
+	var listaAlunos = {nome: "Maria", nota: 10}
+	
+	Características:
+		- Cada chave é única dentro do mapa.
+		- Os valores podem ser duplicados.
+		- Os elementos são acessados por chave.
+
+	Implementações comuns:
+		- HashMap: Mapa que usa uma tabela de hash para armazenamento rápido.
+		- TreeMap: Mapa ordenado que usa uma árvore para armazenamento.
+		- LinkedHashMap: Mapa que mantém a ordem de inserção dos elementos.
+	
+	Usos:
+		- Armazenar dados associativos.
+		- Implementar dicionários e tabelas de pesquisa.
+		- Contar ocorrências de elementos.
+
+	Considerações: A escolha da estrutura de dados depende do caso de uso específico. Coleções e mapas oferecem métodos para adicionar, remover, buscar e iterar sobre os elementos.
+	As coleções fazem parte do framework Collections do Java, que oferece diversas classes e interfaces para manipulação de dados.
+	
+3. HashSet e TreeSet
+	Em Java, HashSet e TreeSet são duas implementações da interface Set, que representa uma coleção de elementos únicos (sem duplicatas). No entanto, elas diferem em como armazenam e ordenam esses elementos:
+
+	- HashSet: Conjunto que usa uma tabela de hash para armazenamento rápido.
+		Armazenamento:
+			- Utiliza uma tabela de hash para armazenar os elementos.
+			- Oferece desempenho muito rápido para operações como adicionar, remover e verificar a presença de elementos (complexidade média de tempo O(1)).
+		Ordenação:
+			- Não garante nenhuma ordem específica para os elementos.
+			- A ordem dos elementos pode variar e não é previsível.
+		Casos de uso:
+			- Quando a ordem dos elementos não é importante e o desempenho é crucial.
+			- Para verificar rapidamente se um elemento existe em um conjunto.
+			- Para remover elementos duplicados de uma coleção.
+	
+	- TreeSet: Conjunto ordenado que usa uma árvore para armazenamento.
+		Armazenamento:
+			- Utiliza uma estrutura de árvore vermelha-preta para armazenar os elementos.
+			- Mantém os elementos em ordem crescente (ordem natural) ou de acordo com um Comparator personalizado.
+			- As operações de adição, remoção e pesquisa têm complexidade de tempo O(log n), onde n é o número de elementos.
+		Ordenação:
+			- Garante que os elementos estejam sempre ordenados.
+			- A ordem pode ser a ordem natural dos elementos (se eles implementarem a interface Comparable) ou uma ordem definida por um Comparator.
+		Casos de uso:
+			- Quando é necessário manter os elementos ordenados.
+			- Para realizar operações de busca por intervalo (encontrar elementos dentro de um determinado intervalo).
+			- Para implementar conjuntos ordenados.
+
+	Principais diferenças:
+		Velocidade:
+			- HashSet é geralmente mais rápido que TreeSet para operações básicas.
+		Ordenação:
+			- HashSet não mantém a ordem dos elementos, enquanto TreeSet mantém a ordem.
+		Implementação:
+			- HashSet usa uma tabela de hash, enquanto TreeSet usa uma árvore de ligação simples.
+
+	Quando usar cada um:
+		- Use HashSet quando a ordem dos elementos não for importante e você precisar de desempenho rápido.
+		- Use TreeSet quando você precisar manter os elementos ordenados ou realizar operações de busca por intervalo.
+
+	Em resumo, a escolha entre HashSet e TreeSet depende dos requisitos específicos do seu aplicativo. Se a ordem não for importante e o desempenho for crucial, use HashSet. Se a ordem for importante ou você precisar realizar operações de busca por intervalo, use TreeSet.
+
+4. List
+	Em Java, uma List é uma interface que representa uma coleção ordenada de elementos. Isso significa que os elementos são armazenados em uma sequência específica e cada elemento tem um índice que indica sua posição na lista.
+
+	Características principais:
+		- Ordenada: Os elementos são armazenados em uma ordem específica.
+		- Permite duplicatas: Uma lista pode conter elementos duplicados.
+		- Acesso por índice: Os elementos podem ser acessados por sua posição na lista.
+
+	Implementações comuns:
+		- ArrayList: Uma implementação de lista baseada em array que oferece acesso rápido aos elementos.
+		- LinkedList: Uma implementação de lista baseada em nós que oferece inserções e remoções eficientes.
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class ExemploList {
+    public static void main(String[] args) {
+        // Cria uma lista de strings
+        List<String> nomes = new ArrayList<>();
+
+        // Adiciona elementos à lista
+        nomes.add("Alice");
+        nomes.add("Bob");
+        nomes.add("Charlie");
+
+        // Acessa elementos por índice
+        System.out.println(nomes.get(0)); // Imprime "Alice"
+
+        // Percorre a lista
+        for (String nome : nomes) {
+            System.out.println(nome);
+        }
+    }
+}
+
+5. Map
+	Em Java, um Map é uma interface que representa uma coleção de pares chave-valor. Diferente de listas e conjuntos, que armazenam elementos individuais, um Map armazena associações entre chaves e valores.
+	
+	Características principais:
+		- Pares chave-valor: Cada elemento em um Map consiste em uma chave e um valor associado.
+		- Chaves únicas: Cada chave em um Map deve ser única. Não podem existir duas chaves iguais no mesmo Map.
+		- Valores duplicados: Valores podem ser duplicados. Várias chaves podem estar associadas ao mesmo valor.
+		- Acesso por chave: Os valores são acessados por suas chaves correspondentes.
+
+	Implementações comuns:
+		- HashMap: Uma implementação de Map baseada em tabela de hash, que oferece desempenho rápido para operações de busca, inserção e remoção.
+		- TreeMap: Uma implementação de Map baseada em árvore vermelha-preta, que mantém os elementos ordenados pelas chaves.
+		- LinkedHashMap: Uma implementação de Map que mantém a ordem de inserção dos elementos.
+
+import java.util.HashMap;
+import java.util.Map;
+
+public class ExemploMap {
+    public static void main(String[] args) {
+        // Cria um mapa de nomes e idades
+        Map<String, Integer> idades = new HashMap<>();
+
+        // Adiciona pares chave-valor ao mapa
+        idades.put("Alice", 25);
+        idades.put("Bob", 30);
+        idades.put("Charlie", 35);
+
+        // Acessa valores por chave
+        System.out.println(idades.get("Alice")); // Imprime 25
+
+        // Percorre o mapa
+        for (Map.Entry<String, Integer> entrada : idades.entrySet()) {
+            System.out.println(entrada.getKey() + ": " + entrada.getValue());
+        }
+    }
+}
+
+6. Listas lineares
+
+	Listas lineares são estruturas de dados sequenciais, onde os elementos são organizados em uma ordem específica. Cada elemento, exceto o primeiro, tem um único predecessor, e cada elemento, exceto o último, tem um único sucessor.
+
+	Características principais:
+		- Sequencial: Os elementos são armazenados em uma sequência linear.
+		- Acesso sequencial: O acesso aos elementos geralmente é feito de forma sequencial, percorrendo a lista elemento por elemento.
+		- Tamanho variável: O tamanho de uma lista linear pode variar, permitindo a adição e remoção de elementos.
+
+	Tipos de listas lineares:
+		- Listas com alocação sequencial (arrays): Os elementos são armazenados em posições contíguas de memória.
+		O acesso a um elemento específico é rápido, pois pode ser feito diretamente pelo índice.
+		A inserção e remoção de elementos no meio da lista podem ser lentas, pois exigem o deslocamento de outros elementos.
+
+		- Listas ligadas: Os elementos são armazenados em nós, que contêm o valor do elemento e um ponteiro para o próximo nó.
+		A inserção e remoção de elementos no meio da lista são eficientes, pois não exigem o deslocamento de outros elementos.
+		O acesso a um elemento específico pode ser lento, pois exige percorrer a lista a partir do primeiro nó.
+
+	Operações comuns em listas lineares:
+		- Inserção: Adicionar um novo elemento à lista.
+		- Remoção: Remover um elemento da lista.
+		- Busca: Encontrar um elemento específico na lista.
+		- Percorrimento: Visitar todos os elementos da lista em sequência.
+
+	Aplicações de listas lineares:
+		- Armazenamento de dados sequenciais, como listas de nomes, registros de transações e filas de espera.
+		- Implementação de outras estruturas de dados, como pilhas e filas.
+		- Processamento de dados em tempo real, como fluxos de dados e sinais.
+
+	Exemplos de listas lineares em Java:
+		- ArrayList: Uma implementação de lista com alocação sequencial.
+		- LinkedList: Uma implementação de lista ligada.
+
+	Considerações: A escolha do tipo de lista linear depende dos requisitos específicos da aplicação. Se o acesso rápido a elementos específicos for importante, um array pode ser a melhor opção. Se a inserção e remoção de elementos no meio da lista forem frequentes, uma lista ligada pode ser mais eficiente.
+
+7. Listas ordenadas e circulares
+
+	Listas ordenadas e circulares são variações de listas lineares que oferecem características específicas para diferentes aplicações.
+	
+	Uma lista ordenada é uma lista linear onde os elementos são mantidos em uma ordem específica, seja crescente ou decrescente, com base em algum critério de comparação.
+	Esse critério pode ser a ordem natural dos elementos (se eles implementarem a interface Comparable em Java) ou uma ordem definida por um Comparator personalizado.
+	
+	Características:
+		- Os elementos são organizados de forma sequencial.
+		- A ordem dos elementos é mantida durante as operações de inserção e remoção.
+		- A busca por elementos pode ser otimizada, pois a ordem permite o uso de algoritmos de busca mais eficientes, como a busca binária.
+
+	Aplicações:
+		- Listas de classificação (por exemplo, listas de alunos classificados por notas).
+		- Dicionários e catálogos.
+		- Implementação de filas de prioridade.
+		
+	Implementações em Java:
+		- TreeSet: Uma implementação de conjunto ordenado que usa uma árvore vermelha-preta para armazenar os elementos.
+		- TreeMap: Uma implementação de mapa ordenado que usa uma árvore vermelha-preta para armazenar os elementos.
+		- Listas comum como ArrayList e LinkedList podem ser mantidas ordenadas por meio do método sort() da classe Collections.
+		
+	Listas Circulares
+	Uma lista circular é uma lista linear onde o último elemento aponta para o primeiro elemento, formando um ciclo.
+	Não há um primeiro ou último elemento definido; qualquer elemento pode ser considerado o ponto de partida.
+	Características:
+		- Os elementos são organizados de forma sequencial, mas sem um fim definido.
+		- O percorrimento da lista pode ser feito continuamente, sem atingir um final.
+		- A inserção e remoção de elementos podem ser feitas em qualquer posição da lista.
+	Aplicações:
+		- Implementação de filas circulares (por exemplo, filas de espera em sistemas de tempo compartilhado).
+		- Representação de estruturas cíclicas, como calendários e jogos de tabuleiro.
+		- Buffer circular para armazenamento de dados temporários.
+	Implementação:
+		- Listas circulares podem ser implementadas usando listas ligadas, onde o ponteiro do último nó aponta para o primeiro nó.
+	
+	Diferenças e Considerações:
+	A principal diferença entre listas ordenadas e circulares é a ordem dos elementos e a estrutura da lista.
+
+	Listas ordenadas priorizam a organização dos elementos com base em um critério de comparação, enquanto listas circulares priorizam a continuidade do percorrimento.
+
+	A escolha entre listas ordenadas e circulares depende dos requisitos específicos da aplicação.
+	Se a ordem dos elementos for importante, use listas ordenadas.
+	Se a continuidade do percorrimento for importante, use listas circulares.
